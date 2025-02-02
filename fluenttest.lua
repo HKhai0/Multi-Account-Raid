@@ -3,9 +3,9 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "KhoatDeScript",
-    SubTitle = "by dawid",
-    TabWidth = 160,
+    Title = "KhoatDeScript V1",
+    SubTitle = "by NotKhoatDe",
+    TabWidth = 100,
     Size = UDim2.fromOffset(400, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Dark",
@@ -14,7 +14,8 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "" }),
+    Raid = Window:AddTab({ Title = "Normal Raid", Icon = "" }),
+    Law = Window:AddTab({ Title = "Law Raid", Icon = "" })
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -22,58 +23,33 @@ local Options = Fluent.Options
 
 do
     Fluent:Notify({
-        Title = "KhoatDeScript",
-        Content = "Loaded",
-        SubContent = "mmmmbb", -- Optional
-        Duration = 1 -- Set to nil to make the notification not disappear
+        Title = "Loaded",
+        Content = "KhoatDeScript V1",
+        SubContent = "by NotKhatDe", -- Optional
+        Duration = 3 -- Set to nil to make the notification not disappear
     })
 
 
+    --Raid Section
 
-    Tabs.Main:AddParagraph({
-        Title = "Paragraph",
-        Content = "This is a paragraph.\nSecond line!"
-    })
+    local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+        Title = "Raid Cage",
+        Values = {"1", "2", "3"}
+        Multi = false,
+        Default = nil,
+        })
 
+    Dropdown:SetValue("1")
 
+    Dropdown:OnChanged(function(Value)
+        print("Raid Cage Changed To ", Value)
+    end)
+    
 
-    Tabs.Main:AddButton({
-        Title = "Button",
-        Description = "Very important button",
-        Callback = function()
-            Window:Dialog({
-                Title = "Title",
-                Content = "This is a dialog",
-                Buttons = {
-                    {
-                        Title = "Confirm",
-                        Callback = function()
-                            print("Confirmed the dialog.")
-                        end
-                    },
-                    {
-                        Title = "Cancel",
-                        Callback = function()
-                            print("Cancelled the dialog.")
-                        end
-                    },
-                    {
-                        Title = "KhoatDeButton",
-                        Callback = function()
-                            print("KhoatDeGay")
-                        end
-                    }
-                }
-            })
-        end
-    })
-
-
-
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Toggle", Default = false })
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Start Tweening", Default = false })
 
     Toggle:OnChanged(function()
-        print("Toggle changed:", Options.MyToggle.Value)
+        print("Tweening To Raid Cage", Options.Dropdown.Value)
     end)
 
     Options.MyToggle:SetValue(false)
@@ -97,22 +73,6 @@ do
     end)
 
     Slider:SetValue(3)
-
-
-
-    local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
-        Title = "Dropdown",
-        Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("four")
-
-    Dropdown:OnChanged(function(Value)
-        print("Dropdown changed:", Value)
-    end)
-
 
     
     local MultiDropdown = Tabs.Main:AddDropdown("MultiDropdown", {
